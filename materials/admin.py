@@ -3,8 +3,8 @@ from materials.models import Course, Lesson
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "author", "description", "preview")
+    list_display = ("id", "name", "owner", "description", "preview")
 
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "course", "author", "video_url", "preview")
+    list_display = ("id", "name", "course", "owner", "video_url", "preview")
