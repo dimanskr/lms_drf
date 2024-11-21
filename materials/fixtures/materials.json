@@ -1,0 +1,58 @@
+[
+{
+  "model": "materials.course",
+  "pk": 1,
+  "fields": {
+    "name": "First course",
+    "preview": "",
+    "description": "My first course",
+    "author": 3
+  }
+},
+{
+  "model": "materials.course",
+  "pk": 2,
+  "fields": {
+    "name": "Second course",
+    "preview": "",
+    "description": "My second course",
+    "author": 2
+  }
+},
+{
+  "model": "materials.lesson",
+  "pk": 1,
+  "fields": {
+    "name": "Урок 1",
+    "description": "Урок 1",
+    "preview": "",
+    "video_url": "",
+    "course": 1,
+    "author": 3
+  }
+},
+{
+  "model": "materials.lesson",
+  "pk": 2,
+  "fields": {
+    "name": "Урок 2",
+    "description": "Урок 2",
+    "preview": "",
+    "video_url": null,
+    "course": 2,
+    "author": 2
+  }
+},
+{
+  "model": "materials.lesson",
+  "pk": 3,
+  "fields": {
+    "name": "Урок 2-1",
+    "description": "Дополнительный урок курса 2",
+    "preview": "",
+    "video_url": null,
+    "course": 2,
+    "author": 2
+  }
+}
+]

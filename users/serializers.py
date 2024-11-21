@@ -26,4 +26,13 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "email", "phone", "city", "password", "payments",)
+        fields = ("id", "email", "phone", "city", "payments",)
+
+
+class UserPublicSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для просмотра другими пользователями.
+    """
+    class Meta:
+        model = User
+        fields = ("email", "phone", "city",)

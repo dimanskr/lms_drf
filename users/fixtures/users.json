@@ -1,0 +1,64 @@
+[
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$pWeh955sRfxW4HRaKWbjAS$arfhJxeoL5fkjWcVggOPccgNNKNbLbLaJh1kgzMCM6g=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-11-19T19:06:02.752Z",
+      "email": "user1@mail.ru",
+      "phone": "+79998882211",
+      "city": "Moscow",
+      "avatar": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$tav5hh0n0ooS8B10piOKCf$TMqCWMgnUHgwINVppBoV4D0s5BdsHglJP24oeeuFSuE=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-11-19T19:07:55Z",
+      "email": "user2@mail.ru",
+      "phone": "+79998883344",
+      "city": "Kostroma",
+      "avatar": "",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$pRXHsRgy0JrMgleiEHrcGe$wedpptrexl3ljY7efuzxd4QSMv26gn1BT4sIgc6njKU=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-11-21T15:50:04.737Z",
+      "email": "user3@mail.ru",
+      "phone": "+79998885566",
+      "city": "SPB",
+      "avatar": "",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  }
+]
