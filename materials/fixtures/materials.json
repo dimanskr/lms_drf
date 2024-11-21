@@ -6,7 +6,7 @@
     "name": "First course",
     "preview": "",
     "description": "My first course",
-    "author": 3
+    "owner": 3
   }
 },
 {
@@ -16,7 +16,7 @@
     "name": "Second course",
     "preview": "",
     "description": "My second course",
-    "author": 2
+    "owner": 2
   }
 },
 {
@@ -28,7 +28,7 @@
     "preview": "",
     "video_url": "",
     "course": 1,
-    "author": 3
+    "owner": 3
   }
 },
 {
@@ -40,7 +40,7 @@
     "preview": "",
     "video_url": null,
     "course": 2,
-    "author": 2
+    "owner": 2
   }
 },
 {
@@ -52,7 +52,7 @@
     "preview": "",
     "video_url": null,
     "course": 2,
-    "author": 2
+    "owner": 2
   }
 }
 ]
