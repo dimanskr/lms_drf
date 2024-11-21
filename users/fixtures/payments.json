@@ -1,49 +1,9 @@
 [
   {
-    "model": "users.user",
-    "pk": 1,
-    "fields": {
-      "password": "12345678",
-      "last_login": null,
-      "is_superuser": false,
-      "first_name": "",
-      "last_name": "",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2024-11-18T13:55:08.190Z",
-      "email": "user@mail.ru",
-      "phone": "+79998882211",
-      "city": "Moscow",
-      "avatar": "",
-      "groups": [],
-      "user_permissions": []
-    }
-  },
-  {
-    "model": "users.user",
-    "pk": 2,
-    "fields": {
-      "password": "11111111",
-      "last_login": null,
-      "is_superuser": false,
-      "first_name": "",
-      "last_name": "",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2024-11-18T14:12:37.121Z",
-      "email": "user2@mail.ru",
-      "phone": "+79998883344",
-      "city": "Kostroma",
-      "avatar": "",
-      "groups": [],
-      "user_permissions": []
-    }
-  },
-  {
     "model": "users.payment",
     "pk": 1,
     "fields": {
-      "user": 1,
+      "user": 2,
       "payment_date": "2024-11-18T14:26:11.231Z",
       "course": 1,
       "lesson": null,
@@ -55,7 +15,7 @@
     "model": "users.payment",
     "pk": 2,
     "fields": {
-      "user": 2,
+      "user": 3,
       "payment_date": "2024-11-17T14:27:55.326Z",
       "course": 2,
       "lesson": null,
@@ -67,7 +27,7 @@
     "model": "users.payment",
     "pk": 3,
     "fields": {
-      "user": 2,
+      "user": 3,
       "payment_date": "2024-11-19T14:28:35.876Z",
       "course": null,
       "lesson": 2,

@@ -5,8 +5,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
-from materials.models import Course, Lesson
-
 NULLABLE = {"blank": True, "null": True}
 
 
@@ -88,13 +86,13 @@ class Payment(models.Model):
     )
     payment_date = models.DateTimeField(auto_now_add=True)
     course = models.ForeignKey(
-        Course,
+        "materials.Course",
         on_delete=models.SET_NULL,
         verbose_name="Оплаченный курс",
         **NULLABLE,
     )
     lesson = models.ForeignKey(
-        Lesson,
+        "materials.Lesson",
         on_delete=models.SET_NULL,
         verbose_name="Оплаченный урок",
         **NULLABLE,

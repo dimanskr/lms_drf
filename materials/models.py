@@ -2,7 +2,6 @@ from django.db import models
 
 NULLABLE = {"null": True, "blank": True}
 
-
 class Course(models.Model):
     name = models.CharField(
         max_length=150,
@@ -17,6 +16,14 @@ class Course(models.Model):
     )
     description = models.TextField(
         verbose_name="Описание курса", **NULLABLE, help_text="Введите описание курса"
+    )
+
+    author = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        **NULLABLE,
+        verbose_name="Автор",
+        related_name="course"
     )
 
     def __str__(self):
@@ -44,7 +51,15 @@ class Lesson(models.Model):
     )
     video_url = models.URLField(verbose_name="Видеоурок", **NULLABLE)
     course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, verbose_name="Курс", related_name="lessons"
+        "materials.Course", on_delete=models.CASCADE, verbose_name="Курс", related_name="lessons"
+    )
+
+    author = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        **NULLABLE,
+        verbose_name="Автор",
+        related_name="lessons"
     )
 
     def __str__(self):
