@@ -32,6 +32,9 @@ class Course(models.Model):
     class Meta:
         verbose_name = "курс"
         verbose_name_plural = "курсы"
+        ordering = (
+            "name",
+        )
 
 
 class Lesson(models.Model):
