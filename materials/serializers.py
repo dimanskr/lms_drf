@@ -12,7 +12,10 @@ class CourseSerializer(serializers.ModelSerializer):
 
 
 class LessonSerializer(serializers.ModelSerializer):
-    video_url = serializers.CharField(validators=[youtube_url_validator], required=False)
+    video_url = serializers.CharField(
+        validators=[youtube_url_validator], required=False
+    )
+
     class Meta:
         model = Lesson
         fields = "__all__"

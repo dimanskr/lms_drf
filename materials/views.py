@@ -5,12 +5,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from materials.models import Course, Lesson
-from materials.serializers import CourseSerializer, LessonSerializer, CourseDetailSerializer
+from materials.paginators import CustomPagination
+from materials.serializers import (CourseDetailSerializer, CourseSerializer,
+                                   LessonSerializer)
 from users.permissions import IsModer, IsOwner
 
 
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
+    pagination_class = CustomPagination
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -26,7 +29,10 @@ class CourseViewSet(ModelViewSet):
         """
         if self.action == "create":
             # может выполнять создание записей
-            self.permission_classes = (IsAuthenticated, ~IsModer,)
+            self.permission_classes = (
+                IsAuthenticated,
+                ~IsModer,
+            )
         elif self.action in ["update", "retrieve", "partial_update"]:
             # может выполнять изменение и просмотр записей
             self.permission_classes = (IsAuthenticated, IsModer | IsOwner)
@@ -38,7 +44,10 @@ class CourseViewSet(ModelViewSet):
 
 class LessonCreateApiView(CreateAPIView):
     serializer_class = LessonSerializer
-    permission_classes = (~IsModer, IsAuthenticated,)
+    permission_classes = (
+        ~IsModer,
+        IsAuthenticated,
+    )
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -47,6 +56,7 @@ class LessonCreateApiView(CreateAPIView):
 class LessonListAPIView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+    pagination_class = CustomPagination
 
 
 class LessonRetrieveAPIView(RetrieveAPIView):
