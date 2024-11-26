@@ -1,16 +1,23 @@
+from django.shortcuts import get_object_or_404
+from rest_framework import status
 from rest_framework.generics import (CreateAPIView, DestroyAPIView,
                                      ListAPIView, RetrieveAPIView,
                                      UpdateAPIView)
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from materials.models import Course, Lesson
-from materials.serializers import CourseSerializer, LessonSerializer, CourseDetailSerializer
+from materials.models import Course, Lesson, Subscription
+from materials.paginators import CustomPagination
+from materials.serializers import (CourseDetailSerializer, CourseSerializer,
+                                   LessonSerializer)
 from users.permissions import IsModer, IsOwner
 
 
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
+    pagination_class = CustomPagination
 
     def get_serializer_class(self):
         if self.action == "retrieve":
@@ -26,7 +33,10 @@ class CourseViewSet(ModelViewSet):
         """
         if self.action == "create":
             # может выполнять создание записей
-            self.permission_classes = (IsAuthenticated, ~IsModer,)
+            self.permission_classes = (
+                IsAuthenticated,
+                ~IsModer,
+            )
         elif self.action in ["update", "retrieve", "partial_update"]:
             # может выполнять изменение и просмотр записей
             self.permission_classes = (IsAuthenticated, IsModer | IsOwner)
@@ -38,7 +48,10 @@ class CourseViewSet(ModelViewSet):
 
 class LessonCreateApiView(CreateAPIView):
     serializer_class = LessonSerializer
-    permission_classes = (~IsModer, IsAuthenticated,)
+    permission_classes = (
+        ~IsModer,
+        IsAuthenticated,
+    )
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -47,6 +60,7 @@ class LessonCreateApiView(CreateAPIView):
 class LessonListAPIView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+    pagination_class = CustomPagination
 
 
 class LessonRetrieveAPIView(RetrieveAPIView):
@@ -64,3 +78,27 @@ class LessonUpdateAPIView(UpdateAPIView):
 class LessonDestroyAPIView(DestroyAPIView):
     queryset = Lesson.objects.all()
     permission_classes = (IsAuthenticated, IsOwner | ~IsModer)
+
+
+class SubscriptionAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, course_id):
+        user = request.user  # Получаем текущего пользователя
+
+        # Получаем объект курса из базы данных
+        course_item = get_object_or_404(Course, id=course_id)
+
+        # Проверяем существование подписки для текущего пользователя и курса
+        subs_item = Subscription.objects.filter(user=user, course=course_item)
+
+        if subs_item.exists():
+            # Если подписка существует, удаляем ее
+            subs_item.delete()
+            message = "Подписка удалена"
+        else:
+            # Если подписки нет, создаем
+            Subscription.objects.create(user=user, course=course_item)
+            message = "Подписка добавлена"
+
+        return Response({"message": message}, status=status.HTTP_200_OK)
