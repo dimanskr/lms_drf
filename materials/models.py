@@ -2,6 +2,7 @@ from django.db import models
 
 NULLABLE = {"null": True, "blank": True}
 
+
 class Course(models.Model):
     name = models.CharField(
         max_length=150,
@@ -12,7 +13,7 @@ class Course(models.Model):
         upload_to="courses/",
         verbose_name="Фото курса",
         **NULLABLE,
-        help_text="Загрузите фото курса"
+        help_text="Загрузите фото курса",
     )
     description = models.TextField(
         verbose_name="Описание курса", **NULLABLE, help_text="Введите описание курса"
@@ -23,7 +24,7 @@ class Course(models.Model):
         on_delete=models.CASCADE,
         **NULLABLE,
         verbose_name="Владелец",
-        related_name="course"
+        related_name="course",
     )
 
     def __str__(self):
@@ -32,9 +33,7 @@ class Course(models.Model):
     class Meta:
         verbose_name = "курс"
         verbose_name_plural = "курсы"
-        ordering = (
-            "name",
-        )
+        ordering = ("name",)
 
 
 class Lesson(models.Model):
@@ -50,11 +49,14 @@ class Lesson(models.Model):
         upload_to="lessons/",
         verbose_name="Фото урока",
         **NULLABLE,
-        help_text="Загрузите фото урока"
+        help_text="Загрузите фото урока",
     )
     video_url = models.URLField(verbose_name="Видеоурок", **NULLABLE)
     course = models.ForeignKey(
-        "materials.Course", on_delete=models.CASCADE, verbose_name="Курс", related_name="lessons"
+        "materials.Course",
+        on_delete=models.CASCADE,
+        verbose_name="Курс",
+        related_name="lessons",
     )
 
     owner = models.ForeignKey(
@@ -62,7 +64,7 @@ class Lesson(models.Model):
         on_delete=models.CASCADE,
         **NULLABLE,
         verbose_name="Владелец",
-        related_name="lessons"
+        related_name="lessons",
     )
 
     def __str__(self):
@@ -81,6 +83,7 @@ class Subscription(models.Model):
     """
     Модель подписки
     """
+
     user = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
