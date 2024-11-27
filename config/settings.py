@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "django_filters",
     "rest_framework_simplejwt",
+    "drf_yasg",
     # my apps
     "users",
     "materials",
