@@ -76,6 +76,9 @@ class User(AbstractUser):
 
 
 class Payment(models.Model):
+    """
+    Модель оплаты
+    """
     PAYMENT_METHOD_CHOICES = [
         ("cash", "Наличные"),
         ("transfer", "Перевод"),
@@ -104,9 +107,27 @@ class Payment(models.Model):
         max_length=10, choices=PAYMENT_METHOD_CHOICES, verbose_name="Способ оплаты"
     )
 
+    session_id = models.CharField(
+        max_length=255,
+        verbose_name="идентификатор сессии",
+        **NULLABLE,
+    )
+
+    payment_link = models.URLField(
+        max_length=450,
+        verbose_name="ссылка на оплату",
+        **NULLABLE,
+    )
+
+    payment_status = models.CharField(
+        max_length=20,
+        **NULLABLE,
+        verbose_name='статус оплаты',
+    )
+
     class Meta:
         verbose_name = "Платеж"
         verbose_name_plural = "Платежи"
 
     def __str__(self):
-        return f"{self.user} - {self.amount} ({self.payment_date})"
+        return f"Платеж пользователя '{self.user}' на сумму: {self.amount} ({self.payment_date})"
