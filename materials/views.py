@@ -13,6 +13,7 @@ from materials.paginators import CustomPagination
 from materials.serializers import (CourseDetailSerializer, CourseSerializer,
                                    LessonSerializer)
 from users.permissions import IsModer, IsOwner
+from materials.tasks import course_update_notification
 
 
 class CourseViewSet(ModelViewSet):
@@ -44,6 +45,11 @@ class CourseViewSet(ModelViewSet):
             # для удаления записи пользователь должен быть владельцем
             self.permission_classes = (IsAuthenticated, ~IsModer | IsOwner)
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        course_update_notification.delay(instance.pk)
+        return instance
 
 
 class LessonCreateApiView(CreateAPIView):
