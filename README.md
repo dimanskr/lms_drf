@@ -1,58 +1,20 @@
 # Домашняя работа DFR
 
-## Установка и запуск
+## Установка и запуск осуществляются с помощью Docker
 
-1. Установите зависимости из файла `pyproject.toml`, используя Poetry:
-    ``` bash
-    poetry install
-    ```
-2. Создайте базу данных postgresql, пропишите настройки подключения к ней
-в файле .env в корне проекта, а так же ключ доступа к системе оплаты Stripe 
-([шаблон файла](.env.sample))
-
-
-3. Если вы создавали базу данных ранее, то очистите ее:
+Команда для создания билда и первого запуска:
    ``` bash
-    python manage.py flush
+    docker-compose up -d --build
    ```
-4. Примените миграции
+Команда для запуска::
    ``` bash
-    python manage.py migrate
+    docker-compose up
    ```
-
-5. Создайте учетную запись администратора кастомной командой:
+Команда для остановки работы программы:
    ``` bash
-   python manage.py csu
+    docker-compose down
    ```
-   *email: admin@mail.ru* \
-   *пароль: 11111111*
-
-
-6. Заполните данные из фикстур (группы, пользователи, материалы, платежи), используя данные фикстур:
-   ``` bash
-   python manage.py loaddata users/fixtures/groups.json
-   python manage.py loaddata users/fixtures/users.json
-   python manage.py loaddata materials/fixtures/materials.json
-   python manage.py loaddata users/fixtures/payments.json
-   ```
-   *для всех пользователей пароль: 11111111* \
-   *пользователь с email user3@mail.ru - модератор*
-
-7. Запустите Celery worker (для Windows с флагом `-P eventlet`):
-    ```bash
-    celery -A config worker -l INFO -P eventlet
-    ```
-   
-8. Запустите celery-beat для периодических задач:
-    ```bash
-    celery -A config beat --loglevel=info
-    ```
-
-9. Запустите сервер:
-    ```bash
-    python manage.py runserver
-    ```
-      
+    
 ## "Эндпоинты курсов и уроков"
 | path                             | methods                |
 |----------------------------------|------------------------|
@@ -82,8 +44,9 @@
 
 На эндпоинте `/users/login/` получаем токен `access` который нужно использовать для доступа к другим эндпоинтам.
 
-### Celery:
-- Настроен проект для работы с Celery, так же celery-beat для выполнения периодических задач.
-- Добавлена асинхронная рассылка писем пользователям об обновлении материалов курса.
-- Добавлено блокирование неактивных более месяца пользователей.
+### Docker Compose:
+- Оформлен файл Dockerfile.
+- Оформлен файл docker-compose.yaml с описанием сервисов 
+PostgreSQL, Redis, Celery.
+- Зависимости для удобства работы перенес в requirements.txt.
 
